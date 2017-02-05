@@ -7,6 +7,7 @@ package animals
 type Kitten struct {
 	Name    string
 	Hobbies []string
+	Like int
 }
 
 func (k *Kitten) SetName(name string) {
@@ -26,6 +27,7 @@ func (k *Kitten) GetHobbies() []string {
 }
 
 // Homework B.2
-func (k *Kitten) IncrementLikeCounter() {
-	// TODO: Modify this method to increment Like value
+func (k *Kitten) IncrementLikeCounter() int {
+	k.Like++
+	return k.Like
 }

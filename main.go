@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/WWGLondon/ExampleAPI/animals"
+	"github.com/sugan2111/wwg/ExampleAPI/animals"
+	"fmt"
 )
 
 var pets []animals.Pet
@@ -35,6 +35,7 @@ func main() {
 	http.HandleFunc("/list", ListKittens)
 
 	// Homework B.4
+	http.HandleFunc("/like", LikedPet)
 	// TODO: Register a new "/like" route and associate it with `LikedPet` handler function
 
 	http.ListenAndServe(":9000", http.DefaultServeMux)
@@ -58,9 +59,15 @@ func LikedPet(rw http.ResponseWriter, r *http.Request) {
 	// assign a new variable "name" and it should be of type string
 	// parse query string with "name" key and assign the value to name variable
 
+	name := r.URL.Query().Get("name")
+
 	// Homework B.5.2
 	// TODO:
-	// iterate through pets
+	for _,k := range pets {
+		if k.GetName() == name {
+			fmt.Fprint(rw, k.IncrementLikeCounter())
+		}
+	}
 	// increment Like value of a pet only if the pet's name equal to variable name
 }
 
