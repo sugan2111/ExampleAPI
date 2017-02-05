@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"github.com/sugan2111/wwg/ExampleAPI/animals"
-	"fmt"
 )
 
 var pets []animals.Pet
@@ -63,12 +62,20 @@ func LikedPet(rw http.ResponseWriter, r *http.Request) {
 
 	// Homework B.5.2
 	// TODO:
+	// increment Like value of a pet only if the pet's name equal to variable name
 	for _,k := range pets {
 		if k.GetName() == name {
-			fmt.Fprint(rw, k.IncrementLikeCounter())
+			k.IncrementLikeCounter()
+			data, err := json.Marshal(k)
+			if err != nil {
+				rw.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+			rw.Write(data)
+			//fmt.Fprint(rw, k.IncrementLikeCounter())
 		}
 	}
-	// increment Like value of a pet only if the pet's name equal to variable name
+
 }
 
 // go run main.go
