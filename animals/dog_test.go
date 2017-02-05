@@ -58,8 +58,10 @@ func TestGetNameGetsTheName(t *testing.T) {
 // Complete this test case
 func TestBarkGetsWoofed(t *testing.T) {
 	// setup
-	// TODO: instantiate a Dog to be tested
+	dog := Dog{}
 
 	// assert
-	// TODO: fail the test if Bark method doesn't return "Woof!"
+	if dog.Bark() != "Woof" {
+		t.Fail()
+	}
 }
